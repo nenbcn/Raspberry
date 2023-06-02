@@ -1,0 +1,130 @@
+[
+    {
+        "tipo": "subscripcion",
+        "casa": "casa",
+        "habitacion": "huerto",
+        "dispositivo": "sensorPH",
+        "accion": "mide",
+        "parametros": [
+            {
+                "nombre": "PH",
+                "tipo": "float"
+            }
+        ]
+    },
+    {
+        "tipo": "subscripcion",
+        "casa": "casa",
+        "habitacion": "huerto",
+        "dispositivo": "sensorPH",
+        "accion": "leeParametros",
+        "parametros": 
+        [
+            {
+                "nombre": "PHMax",
+                "tipo": "float"
+            },
+            {
+                "nombre": "PHMin",
+                "tipo": "float"
+            },
+            {
+                "nombre": "tiempoBomba",
+                "tipo": "int"
+            },
+            {
+                "nombre": "intControl",
+                "tipo": "int"
+            },
+            {
+                "nombre": "intLectura",
+                "tipo": "int"
+            },
+            {
+                "nombre": "intPing",
+                "tipo": "int"
+            },
+            {
+                "nombre": "peso",
+                "tipo": "int"
+            }
+        ]
+    },
+    {
+        "tipo": "publicacion",
+        "casa": "casa",
+        "habitacion": "huerto",
+        "dispositivo": "sensorPH",
+        "accion": "actualizaparametro",
+        "parametros": [
+            {
+                "nombre": "PHMax",
+                "tipo": "float"
+            },
+            {
+                "nombre": "PHMin",
+                "tipo": "float"
+            },
+            {
+                "nombre": "tiempoBomba",
+                "tipo": "int"
+            },
+            {
+                "nombre": "intControl",
+                "tipo": "int"
+            },
+            {
+                "nombre": "intLectura",
+                "tipo": "int"
+            },
+            {
+                "nombre": "intPing",
+                "tipo": "int"
+            },
+            {
+                "nombre": "peso",
+                "tipo": "int"
+            },
+            {
+                "nombre": "calibrar",
+                "tipo": "int"
+            }
+        ]
+    },
+    {
+        "tipo": "publicacion",
+        "casa": "casa",
+        "habitacion": "huerto",
+        "dispositivo": "sensorPH",
+        "accion": "enviaParametros",
+        "parametros": []
+    },
+    {
+        "tipo": "publicacion",
+        "casa": "casa",
+        "habitacion": "huerto",
+        "dispositivo": "bomba",
+        "accion": "subir",
+        "parametros": [
+            {
+                "nombre": "tiempoBomba",
+                "tipo": "int"
+            }
+        ]
+    },
+    {
+        "tipo": "publicacion",
+        "casa": "casa",
+        "habitacion": "huerto",
+        "dispositivo": "bomba",
+        "accion": "bajar",
+        "parametros": [
+            {
+                "nombre": "tiempoBomba",
+                "tipo": "int"
+            }
+        ]
+    }
+]
+
+

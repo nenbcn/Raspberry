@@ -1,0 +1,6 @@
+paho-mqtt
+python-telegram-bot
+time
+telegram
+telegram.ext
+typing  #para usar list
