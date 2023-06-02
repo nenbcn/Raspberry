@@ -20,7 +20,7 @@ MQTT_PASSWORD = 'rikic0'
 TOPICS = Topics()
 MAX_RETRIES = 5  # Número máximo de intentos de conexión
 # Stages
-SELECT_HOUSE, SELECT_ROOM, SELECT_DEVICE, SELECT_ACTION,ENVIO = range(5)
+SELECT_HOUSE, SELECT_ROOM, SELECT_DEVICE, SELECT_ACTION = range(4)
 # topics instance
 topics = Topics()
 
@@ -131,9 +131,11 @@ async def sub(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     else:   
         raise ValueError("No estoy en una conversación conocida")
 
-
+    #crea una lista keyboard con una boton para cada casa
     keyboard = [[InlineKeyboardButton(house, callback_data=house)] for house in houses]
+    # crea un teclado con todos los botones de las casa
     reply_markup = InlineKeyboardMarkup(keyboard)
+    # enviar el teclado al chat en reply_markup se carga el teclado que hemos construido antes
     await update.message.reply_text("Selecciona una casa", reply_markup=reply_markup)
     return SELECT_HOUSE
 
@@ -161,12 +163,18 @@ async def pub(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 async def select_house(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """
     guarda la casa y pide habitaciones
+    en esta funcion solo se entra cuando el usuario a pulsado un boton "callbackqueryHandler
+    
     """
     logger.info("User started selec_house")
+    # recupera el valor del boton pulsado y lo carga en query
     query = update.callback_query
+    # confirma al chat que ha leido el boton pulsado, es imporatnte hacerlo porque sino hay problems
     await query.answer()
+    # guarda la casa en el context
     selected_house = query.data
     context.user_data['house'] = selected_house
+    # carga en rooms la lista de habitaciones de la casa seleccionada
     current_conversation = context.user_data['current_conversation']
     if current_conversation == 'pub':
         rooms = topics.publication_rooms
@@ -174,9 +182,11 @@ async def select_house(update: Update, context: ContextTypes.DEFAULT_TYPE) -> in
         rooms = topics.subscription_rooms
     else:   
         raise ValueError("No estoy en una conversación conocida")
+    # crea un teclado con la lista de habitaciones -> reply_markup
     rooms = [room[1] for room in rooms if room[0] == selected_house]
     keyboard = [[InlineKeyboardButton(room, callback_data=room)] for room in rooms]
     reply_markup = InlineKeyboardMarkup(keyboard)
+    # edita el mensaje en el chat y lo cambia por el keyboard para sleccionar habitaciones
     await query.edit_message_text(text=f"Seleccionaste {selected_house}. Ahora selecciona una habitación", reply_markup=reply_markup)
     return SELECT_ROOM
 
@@ -186,7 +196,9 @@ async def select_room(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int
     guarda la habitacion en context y pide el device
     """
     logger.info("User started selec_room")
+    # recupera el boton pulsado
     query = update.callback_query
+    # confirma que la leido el boton pulsado
     await query.answer()
     selected_room = query.data
     context.user_data['room'] = selected_room
@@ -197,9 +209,11 @@ async def select_room(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int
         devices = topics.subscription_devices
     else:   
         raise ValueError("No estoy en una conversación conocida")
+    # crea un teclado con la lista de devices validos
     devices = [device[2] for device in devices if device[0] == context.user_data['house'] and device[1] == selected_room]
     keyboard = [[InlineKeyboardButton(device, callback_data=device)] for device in devices]
     reply_markup = InlineKeyboardMarkup(keyboard)
+    #edita el mensaje del chat y lo cambio por el teclado con los devices validos
     await query.edit_message_text(text=f"Seleccionaste {selected_room}. Ahora selecciona un dispositivo", reply_markup=reply_markup)
     return SELECT_DEVICE
 
@@ -208,6 +222,7 @@ async def select_device(update: Update, context: ContextTypes.DEFAULT_TYPE) -> i
     guarda el device en context y pide la accion
     """
     logger.info("User started selec_device")
+    # lee el boton pulsado y luego confirma que lo ha leido
     query = update.callback_query
     await query.answer()
     selected_device = query.data
@@ -219,9 +234,11 @@ async def select_device(update: Update, context: ContextTypes.DEFAULT_TYPE) -> i
         actions = topics.subscription_actions
     else:   
         raise ValueError("No estoy en una conversación conocida")
+    # crea el teclado con la lista de acciones
     actions = [action[3] for action in actions if action[0] == context.user_data['house'] and action[1] == context.user_data['room'] and action[2] == selected_device]
     keyboard = [[InlineKeyboardButton(action, callback_data=action)] for action in actions]
     reply_markup = InlineKeyboardMarkup(keyboard)
+    # edita el mensaje del chat y lo cambia por el teclado con las lista de acciones
     await query.edit_message_text(text=f"Seleccionaste {selected_device}. Ahora selecciona una acción", reply_markup=reply_markup)
     return SELECT_ACTION
 
@@ -232,12 +249,24 @@ async def select_action(update: Update, context: ContextTypes.DEFAULT_TYPE) -> i
         si este en conversacion pub pasara a end_pub
     """
     logger.info("User started selec_action")
+    # lee el boton pulsado y confirma que lo ha leido
     query = update.callback_query
     await query.answer()
     selected_action = query.data
     context.user_data['action'] = selected_action
-    #await query.edit_message_text(text=f"Seleccionaste {selected_action}")
-    return ENVIO
+    # edita el mensaje del chat para indicar que ha seleccionado una accion
+    await query.edit_message_text(text=f"Seleccionaste {selected_action}")
+    
+    current_conversation = context.user_data['current_conversation']
+    if current_conversation == 'pub':
+        return await end_pub(update, context)
+    elif current_conversation == 'sub':
+        return await end_sub(update, context)
+    else:   
+        return ConversationHandler.END
+        
+        
+    
 
 
 async def end_sub(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
@@ -245,8 +274,8 @@ async def end_sub(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     monta el topic y se subscribe por mqtt
     """
     logger.info("User started end_sub")
-    query = update.callback_query
-    await query.answer()
+    #query = update.callback_query
+    #await query.answer()
 
     # Realiza la suscripción al topic específico
     house = context.user_data['house']
@@ -256,7 +285,7 @@ async def end_sub(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     topic = f"casa/{house}/{room}/{device}/{action}"
     subscribe_to_topic(mqtt_client, topic)
     await query.edit_message_text(text=f"subscrito a {topic}") 
-    
+
     context.user_data.clear()  # Limpia los datos del usuario al final
     return ConversationHandler.END
 
@@ -270,8 +299,8 @@ async def end_pub(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     publica el topic por mqtt
     """
     logger.info("User started end_pub")        
-    query = update.callback_query
-    await query.answer()
+    #query = update.callback_query
+    #await query.answer()
 
     # Obtener la lista de parámetros asociados al topic
     house = context.user_data['house']
@@ -325,14 +354,12 @@ async def end_pub(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
         payload = json.dumps(valores_parametros)
         public_topic(mqtt_client, topic, payload)
         logger.info("mqtt public topic")
-        await query.edit_message_text(text=f"Publicado topic= {topic} Payload = {payload}")
+        await query.edit_message_text(text=f"Publicado topic = {topic} Payload = {payload}")
         context.user_data.clear()  # Limpia los datos del usuario al final
         return ConversationHandler.END
     else:
         # Al menos un parámetro no se ingresó correctamente, volver a solicitar el mismo parámetro
         return ENVIO
-
-
 
 async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """
@@ -345,8 +372,6 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
 
  #       subscribe_to_topic(mqtt_client, topic)
-
-
 
 def main() -> None:
     """Start the bot."""
@@ -364,7 +389,6 @@ def main() -> None:
             SELECT_ROOM     : [CallbackQueryHandler(select_room),CommandHandler('cancel',cancel )],
             SELECT_DEVICE   : [CallbackQueryHandler(select_device),CommandHandler('cancel',cancel )],
             SELECT_ACTION   : [CallbackQueryHandler(select_action),CommandHandler('cancel',cancel )],
-            ENVIO           : [CallbackQueryHandler(end_pub),CommandHandler('cancel', cancel)],
         },
         fallbacks=[CommandHandler('cancel', cancel)],
         per_message=False
@@ -376,7 +400,6 @@ def main() -> None:
             SELECT_ROOM     : [CallbackQueryHandler(select_room),CommandHandler('cancel', cancel)],
             SELECT_DEVICE   : [CallbackQueryHandler(select_device),CommandHandler('cancel', cancel)],
             SELECT_ACTION   : [CallbackQueryHandler(select_action),CommandHandler('cancel',cancel )],
-            ENVIO           : [CallbackQueryHandler(end_sub),CommandHandler('cancel', cancel)]
         },
         fallbacks=[CommandHandler('cancel', cancel)],
         per_message=False
@@ -390,7 +413,6 @@ def main() -> None:
     application.add_handler(CommandHandler("recon", handle_recon_command))
     application.run_polling()
     # Run the bot until the user presses Ctrl-C
-
 
 if __name__ == "__main__":
     main()
