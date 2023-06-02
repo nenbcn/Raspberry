@@ -283,8 +283,11 @@ async def end_sub(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     device = context.user_data['device']
     action = context.user_data['action']
     topic = f"casa/{house}/{room}/{device}/{action}"
-    subscribe_to_topic(mqtt_client, topic)
-    await query.edit_message_text(text=f"subscrito a {topic}") 
+    await subscribe_to_topic(mqtt_client, topic)
+    mensaje =f"Subscrito a {topic}"
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=mensaje)
+
+    #await query.edit_message_text(text=f"subscrito a {topic}") 
 
     context.user_data.clear()  # Limpia los datos del usuario al final
     return ConversationHandler.END
