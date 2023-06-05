@@ -6,6 +6,7 @@ logger = logging.getLogger(__name__)
 import paho.mqtt.client as mqtt
 import time
 import json
+import paramiko
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import Application, CallbackQueryHandler, CommandHandler, ContextTypes, ConversationHandler,MessageHandler, filters
 from topics import Topics
@@ -15,9 +16,9 @@ from typing import List
 
 
 TELEGRAM_API_TOKEN = '6085775716:AAE1gytGt3-qsRedO8MWEy6mhcTym4wbp00'
-MQTT_SERVER = '192.168.1.52'
-MQTT_USER = 'nenbcn'
-MQTT_PASSWORD = 'rikic0'
+SERVER = '192.168.1.52'
+USER = 'nenbcn'
+PASSWORD = 'rikic0'
 TOPICS = Topics()
 MAX_RETRIES = 5  # Número máximo de intentos de conexión
 # Stages
@@ -25,20 +26,19 @@ SELECT_HOUSE, SELECT_ROOM, SELECT_DEVICE, SELECT_ACTION, ENTER_PARAMETERS = rang
 # topics instance
 topics = Topics()
 
-
 # conecdtarse a mqtt
-def setup_mqtt_client() -> mqtt.Client:
+async def setup_mqtt_client() -> mqtt.Client:
     """
     Crea y configura un cliente MQTT.
 
     :return: Cliente MQTT configurado.
     """
     mqtt_client = mqtt.Client()
-    mqtt_client.username_pw_set(MQTT_USER, MQTT_PASSWORD)
-      
+    mqtt_client.username_pw_set(USER, PASSWORD)
     for i in range(MAX_RETRIES):
         try:
-            mqtt_client.connect(MQTT_SERVER)
+            mqtt_client.connect(SERVER)
+            mqtt_client.loop_start()  # Iniciar el bucle de eventos
             print(f"Conexión MQTT establecida en el intento {i+1}.")
             return mqtt_client
         except ConnectionRefusedError:
@@ -48,15 +48,6 @@ def setup_mqtt_client() -> mqtt.Client:
                 print(f"No se pudo establecer la conexión MQTT después de {MAX_RETRIES} intentos.")
                 return None
 
-async def public_topic(mqtt_client, topic, payload):
-    mqtt_client.publish(topic, payload)
-    logger.info("Publish mqtt", topic, payload)
-
-async def subscribe_to_topic(mqtt_client, topic):
-    mqtt_client.subscribe(topic)
-    logger.info("subscribe mqtt", topic)
-
-
 async def handle_recon_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """
     Maneja el comando /recon.
@@ -64,13 +55,118 @@ async def handle_recon_command(update: Update, context: ContextTypes.DEFAULT_TYP
     :param update: Objeto de actualización de Telegram.
     :param context: Objeto de contexto de Telegram.
     """
-    global mqtt_client  # Accedemos a la variable global mqtt_client
-    mqtt_client = setup_mqtt_client()  # Intentamos establecer la conexión MQTT
-    if mqtt_client is None:
-        await update.message.reply_text("No se pudo reconectar al servidor MQTT.")
+    mqtt_client = context.chat_data.get("mqtt_client")
+    if mqtt_client is not None and mqtt_client.is_connected():
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="La conexion ya esta activa")
     else:
-        await update.message.reply_text("Conexión MQTT reestablecida exitosamente.")
-        logger.info("conexion mqtt ok")
+        new_mqtt_client = await setup_mqtt_client()  # Intentamos establecer la conexión MQTT
+        if new_mqtt_client is None:
+            await context.bot.send_message(chat_id=update.effective_chat.id, text="No se pudo reconectar al servidor MQTT.")
+        else:
+            context.chat_data["mqtt_client"] = new_mqtt_client  # Guardar el nuevo cliente MQTT en el contexto
+            await context.bot.send_message(chat_id=update.effective_chat.id, text="Conexión MQTT reestablecida exitosamente.")
+            logger.info("Conexión MQTT restablecida correctamente.")
+
+
+async def public_topic(update: Update, context : ContextTypes.DEFAULT_TYPE, topic, payload) -> None:
+    """
+    Publica un mensaje en un tema MQTT.
+
+    :param update: Objeto de actualización de Telegram.
+    :param context: Objeto de contexto de Telegram.
+    :param topic: Tema MQTT en el que se publicará el mensaje.
+    :param payload: Mensaje a publicar.
+    """
+    mqtt_client = context.chat_data.get("mqtt_client")
+    if mqtt_client is not None and mqtt_client.is_connected():
+        mqtt_client.publish(topic, payload)
+        logger.info(f"Publish mqtt, {topic}, {payload}")
+    else:
+        # La conexión MQTT no está activa, intentar reconectar
+        await handle_recon_command(update, context)
+        mqtt_client = context.chat_data.get("mqtt_client")
+        if mqtt_client is not None and mqtt_client.is_connected():
+            mqtt_client.publish(topic, payload)
+            logger.info(f"Publish mqtt {topic}, {payload}")
+        else:
+            logger.error("La conexión MQTT no está activa. No se pudo publicar el mensaje.")
+    
+async def subscribe_to_topic(update: Update, context : ContextTypes.DEFAULT_TYPE, topic) -> None:
+    """
+    """
+    mqtt_client = context.chat_data.get("mqtt_client")
+    if mqtt_client is not None and mqtt_client.is_connected():
+        mqtt_client.subscribe(topic)
+        logger.info(f"subscribe mqtt {topic}")
+    else:
+         # La conexión MQTT no está activa, intentar reconectar
+        await handle_recon_command(update, context)
+        mqtt_client = context.chat_data.get("mqtt_client")
+        if mqtt_client is not None and mqtt_client.is_connected():
+            mqtt_client.subscribe(topic)
+            logger.info(f"subscribe mqtt {topic}")
+        else:
+            logger.error("La conexión MQTT no está activa. No se pudo suscribir al tema.")
+
+
+async def mqtt_status(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """
+    Maneja el comando /mqtt_status.
+    Devuelve el estado de la conexión MQTT y el broker al que está conectado.
+    """
+    mqtt_client = context.chat_data.get("mqtt_client")
+    # Verificar si el cliente MQTT está conectado
+    if mqtt_client is not None and mqtt_client.is_connected():
+        # Obtener el broker al que está conectado el cliente MQTT
+        broker = mqtt_client._host
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Estado de la conexión MQTT: Conectado\nBroker: {broker}")
+    else:
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="Estado de la conexión MQTT: Desconectado")
+
+
+async def check_service_status():
+    """
+    verifica staus de los servicios de la raspberry
+    """
+    # Establecer conexión SSH con la Raspberry Pi
+    ssh_client = paramiko.SSHClient()
+    ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    ssh_client.connect(SERVER, username=USER, password=PASSWORD)
+
+    # Ejecutar comandos para verificar el estado de los servicios
+    commands = [
+        "systemctl is-active mosquitto.service",
+        "systemctl is-active nodered.service",
+        "systemctl is-active grafana-server",
+        "systemctl is-active influxdb.service"
+    ]
+    status = {}
+    for command in commands:
+        _, stdout, _ = ssh_client.exec_command(command)
+        output = stdout.read().decode().strip()
+        service_name = command.split()[-1]
+        status[service_name] = (output == "active")
+    # Cerrar conexión SSH
+    ssh_client.close()
+    return status
+
+async def check_raspberry_services(update: Update, context):
+    """
+    """
+    try:
+        status = await check_service_status()
+        response = "Estado de los servicios en la Raspberry Pi:\n"
+        for service, is_active in status.items():
+            if is_active:
+                response += f"{service} está activo\n"
+            else:
+                response += f"{service} NO está activo!!!\n"
+
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=response)
+    except paramiko.SSHException as e:
+        error_message = "Se produjo un error al establecer la conexión SSH con la Raspberry Pi. Verifica la configuración y los datos de conexión."
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=error_message)
+
 
 
 # Define a few command handlers. These take the two arguments update and context.
@@ -87,6 +183,18 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         rf"Hi {user.mention_html()}!",
         #reply_markup=ForceReply(selective=True),
     )
+     
+    # inicializar mqtt
+    mqtt_client = context.chat_data.get("mqtt_client")
+    if mqtt_client is None or not mqtt_client.is_connected():
+        mqtt_client = await setup_mqtt_client()  # Establecer la conexión MQTT
+        if mqtt_client is None:
+            await context.bot.send_message(chat_id=update.effective_chat.id, text="No se pudo establecer la conexión MQTT.")
+        else:
+            context.chat_data["mqtt_client"] = mqtt_client  # Guardar el cliente MQTT en el contexto
+            await context.bot.send_message(chat_id=update.effective_chat.id, text="Conexión MQTT establecida.")
+    else:
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="Conexión MQTT ya está establecida.")
 
 async def help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """
@@ -101,6 +209,8 @@ async def help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     /help - Muestra este mensaje de ayuda
     /pub - Inicia una secuencia de encuestas para seleccionar un tema para publicar
     /sub - Inicia una secuencia de encuestas para seleccionar un tema al que suscribirse
+    /mqtt_status  - verifica conexion mqtt
+    /raspberry  - verifica status servicios raspberry
     /recon - Intenta reconectar al broker mqtt
     /cancel - Cancela el comando
     """
@@ -300,7 +410,7 @@ async def end_sub(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     # Realiza la suscripción al topic específico
     
     topic = context.user_data ['topic']
-    await subscribe_to_topic(mqtt_client, topic)
+    await subscribe_to_topic(update, context, topic)
     mensaje =f"Subscrito a {topic}"
     await context.bot.send_message(chat_id=update.effective_chat.id, text=mensaje)
 
@@ -380,7 +490,7 @@ async def end_pub(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
             payload = json.dumps(context.user_data['valores_parametros'])
         else:
             payload = ""
-        await public_topic(mqtt_client, topic, payload)
+        await public_topic(update, context, topic, payload)
         if 'reply_to_message_id' in context.user_data:
             await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Publicado topic = {topic} Payload = {payload}", reply_to_message_id=context.user_data['reply_to_message_id'])
         else:
@@ -399,8 +509,6 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     await update.message.reply_text('Deteniendo la conversación.')
     return ConversationHandler.END
 
-
- #       subscribe_to_topic(mqtt_client, topic)
 
 def main() -> None:
     """Start the bot."""
@@ -436,11 +544,13 @@ def main() -> None:
     )
     application.add_handler(conversation_handler_pub)
     application.add_handler(conversation_handler_sub)
-    #application.add_handler(CommandHandler("sub", sub))
-    #application.add_handler(CommandHandler("pub", pub))
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("help", help))
     application.add_handler(CommandHandler("recon", handle_recon_command))
+    application.add_handler(CommandHandler("mqtt_status", mqtt_status))
+    application.add_handler(CommandHandler("raspberry", check_raspberry_services))
+    
+
     application.run_polling()
     # Run the bot until the user presses Ctrl-C
 
