@@ -5,8 +5,9 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 import paho.mqtt.client as mqtt
 import time
+import json
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
-from telegram.ext import Application, CallbackQueryHandler, CommandHandler, ContextTypes, ConversationHandler
+from telegram.ext import Application, CallbackQueryHandler, CommandHandler, ContextTypes, ConversationHandler,MessageHandler, filters
 from topics import Topics
 from typing import List
 
@@ -20,7 +21,7 @@ MQTT_PASSWORD = 'rikic0'
 TOPICS = Topics()
 MAX_RETRIES = 5  # Número máximo de intentos de conexión
 # Stages
-SELECT_HOUSE, SELECT_ROOM, SELECT_DEVICE, SELECT_ACTION = range(4)
+SELECT_HOUSE, SELECT_ROOM, SELECT_DEVICE, SELECT_ACTION, ENTER_PARAMETERS = range(5)
 # topics instance
 topics = Topics()
 
@@ -259,7 +260,26 @@ async def select_action(update: Update, context: ContextTypes.DEFAULT_TYPE) -> i
     
     current_conversation = context.user_data['current_conversation']
     if current_conversation == 'pub':
-        return await end_pub(update, context)
+        # Obtener la lista de parámetros asociados al topic
+        house = context.user_data['house']
+        room = context.user_data['room']
+        device = context.user_data['device']
+        action = context.user_data['action']
+        topic = f"casa/{house}/{room}/{device}/{action}"
+        context.user_data['topic'] =topic
+        context.user_data['parametros'] = {}
+        parametros = topics.parameters.get((house, room, device, action), [])
+        context.user_data['parametros'] = parametros # lo pongo en context para que lo use end_sub
+
+        if parametros:
+            # Si hay parámetros, solicitar el valor del siguiente parámetro
+            nombre_parametro = parametros[0]['nombre']
+            await query.edit_message_text(text=f"Ingresa el valor para el parámetro '{nombre_parametro}':")
+            context.user_data['valores_parametros'] = {}
+            return ENTER_PARAMETERS  #con la respuesta se llamara a end_pub
+        else:
+            # Si no hay parámetros, llamar directamente a 'end_pub'
+            return await end_pub(update, context)
     elif current_conversation == 'sub':
         return await end_sub(update, context)
     else:   
@@ -278,11 +298,8 @@ async def end_sub(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     #await query.answer()
 
     # Realiza la suscripción al topic específico
-    house = context.user_data['house']
-    room = context.user_data['room']
-    device = context.user_data['device']
-    action = context.user_data['action']
-    topic = f"casa/{house}/{room}/{device}/{action}"
+    
+    topic = context.user_data ['topic']
     await subscribe_to_topic(mqtt_client, topic)
     mensaje =f"Subscrito a {topic}"
     await context.bot.send_message(chat_id=update.effective_chat.id, text=mensaje)
@@ -295,74 +312,83 @@ async def end_sub(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
 async def end_pub(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """
-    monta el topic
-    lee el json con la definicion de los parametros {nombre: nombre , tipo:int,float, str}
-    pide valor de los paramtros
-    monta el payload con un json con el nombre y valor de parametros
-    publica el topic por mqtt
-    """
-    logger.info("User started end_pub")        
-    #query = update.callback_query
-    #await query.answer()
+    1.  La función end_pub es llamada desde el ConversationHandler cuando está en el estado ENTER_PARAMETERS.
+    2.  En cada llamada a la función, se obtiene el valor ingresado por el usuario desde el mensaje actual.
+    3. Se verifica si aún quedan parámetros por procesar en la lista de parámetros parametros dentro del contexto del usuario.
+    4. Si hay parámetros restantes:
+        4.1. Se obtiene el próximo parámetro de la lista de parámetros mediante el método pop(0). Esto elimina el parámetro de la lista.
+        4.2. Se valida el tipo del valor ingresado por el usuario según el tipo del parámetro.
+        4.3. Si el tipo del valor no coincide con el tipo del parámetro o la conversión del valor falla, se envía un mensaje de error al usuario indicando el tipo de valor requerido.
+        4.4. Si el tipo del valor coincide con el tipo del parámetro, se guarda el valor en el diccionario valores_parametros dentro del contexto del usuario.
+        4.5. Se obtiene el nombre del siguiente parámetro y se envía un mensaje al usuario solicitando el valor del parámetro.
+        4.6. Se retorna el estado ENTER_PARAMETERS para esperar la respuesta del usuario y continuar solicitando los valores de los parámetros restantes.
+    5. Si no hay parámetros restantes:
+        5.1. Se obtiene el tema (topic) y el diccionario de valores de parámetros (valores_parametros) del contexto del usuario.
+        5.2. Se convierte el diccionario valores_parametros a una cadena JSON utilizando la función json.dumps().
+        5.3. Se realiza la publicación del mensaje MQTT utilizando el cliente MQTT, el tema (topic) y el payload (valores_parametros en formato JSON).
+        5.4. Se envía un mensaje al usuario confirmando la publicación del mensaje MQTT.
+        5.5. Se limpian los datos del usuario en el contexto.
+        5.6. Se finaliza la conversación.
+"""
 
-    # Obtener la lista de parámetros asociados al topic
-    house = context.user_data['house']
-    room = context.user_data['room']
-    device = context.user_data['device']
-    action = context.user_data['action']
-    topic = f"casa/{house}/{room}/{device}/{action}"
-    parametros = topics.parameters.get((house, room, device, action), [])
-    
-    # Crear un diccionario para almacenar los valores de los parámetros ingresados por el usuario
-    valores_parametros = {}
-    
-    # Solicitar los valores de los parámetros al usuario
-    for parametro in parametros:
+    if update.message:
+        valor_ingresado = update.message.text.strip()
+    else:
+        valor_ingresado = ""
+
+
+    if context.user_data.get('parametros'):
+        parametro = context.user_data['parametros'].pop(0)
         nombre_parametro = parametro['nombre']
         tipo_parametro = parametro['tipo']
-        
-        # Solicitar el valor del parámetro al usuario
-        await query.edit_message_text(text=f"Ingresa el valor para el parámetro '{nombre_parametro}':")
-        
-        while True:
-            logger.info("User started while validate parameter")
-            # Esperar la respuesta del usuario
-            response = await update.message.reply_to_message()
-            valor_ingresado = response.text.strip()
-            
-            # Validar el tipo del valor ingresado
-            if tipo_parametro == 'int':
-                try:
-                    valor_parametro = int(valor_ingresado)
-                    valores_parametros[nombre_parametro] = valor_parametro
-                    break  # Valor correcto, salir del bucle while
-                except ValueError:
-                    await update.message.reply_text(f"Error: el valor para el parámetro '{nombre_parametro}' debe ser un entero.")
-            elif tipo_parametro == 'float':
-                try:
-                    valor_parametro = float(valor_ingresado)
-                    valores_parametros[nombre_parametro] = valor_parametro
-                    break  # Valor correcto, salir del bucle while
-                except ValueError:
-                    await update.message.reply_text(f"Error: el valor para el parámetro '{nombre_parametro}' debe ser un número decimal.")
-            else:
-                # Tipo de parámetro no reconocido
-                await update.message.reply_text(f"Error: el tipo de parámetro '{tipo_parametro}' no es válido.")
-                break  # Salir del bucle while sin guardar el valor, volver a solicitar el mismo parámetro
-        
-    # Verificar si todos los parámetros se ingresaron correctamente
-    logger.info("User finish while parameters")
-    if len(valores_parametros) == len(parametros):
-        # Realizar la publicación del topic con los valores de los parámetros
-        payload = json.dumps(valores_parametros)
-        public_topic(mqtt_client, topic, payload)
-        logger.info("mqtt public topic")
-        await query.edit_message_text(text=f"Publicado topic = {topic} Payload = {payload}")
-        context.user_data.clear()  # Limpia los datos del usuario al final
+
+        if tipo_parametro == 'int':
+            try:
+                valor_parametro = int(valor_ingresado)
+                context.user_data['valores_parametros'][nombre_parametro] = valor_parametro # solo si int es ok
+                if context.user_data['parametros']:
+                    siguiente_parametro = context.user_data['parametros'][0]['nombre']
+                    await update.message.reply_text(f"Ingrese el valor para el parámetro '{siguiente_parametro}':")
+                    return ENTER_PARAMETERS
+            except ValueError:
+                await update.message.reply_text(f"Error: el valor para el parámetro '{nombre_parametro}' debe ser un entero.")
+                context.user_data['parametros'].insert(0, parametro)
+                return ENTER_PARAMETERS
+        elif tipo_parametro == 'float':
+            try:
+                valor_parametro = float(valor_ingresado)
+                context.user_data['valores_parametros'][nombre_parametro] = valor_parametro
+                if context.user_data['parametros']:
+                    siguiente_parametro = context.user_data['parametros'][0]['nombre']
+                    await update.message.reply_text(f"Ingrese el valor para el parámetro '{siguiente_parametro}':")
+                    return ENTER_PARAMETERS
+            except ValueError:
+                await update.message.reply_text(f"Error: el valor para el parámetro '{nombre_parametro}' debe ser un número decimal.")
+                context.user_data['parametros'].insert(0, parametro)
+                return ENTER_PARAMETERS
+        else:
+            context.user_data['valores_parametros'][nombre_parametro] = valor_ingresado
+            if context.user_data['parametros']:
+                    siguiente_parametro = context.user_data['parametros'][0]['nombre']
+                    await update.message.reply_text(f"Ingrese el valor para el parámetro '{siguiente_parametro}':")
+                    return ENTER_PARAMETERS
+
+    # Verificar si no quedan más parámetros en la lista si no quedan envia el mensaje
+    if not context.user_data['parametros']:
+        topic = context.user_data['topic']
+        if context.user_data.get('valores_parametros'):
+            payload = json.dumps(context.user_data['valores_parametros'])
+        else:
+            payload = ""
+        await public_topic(mqtt_client, topic, payload)
+        if 'reply_to_message_id' in context.user_data:
+            await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Publicado topic = {topic} Payload = {payload}", reply_to_message_id=context.user_data['reply_to_message_id'])
+        else:
+            await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Publicado topic = {topic} Payload = {payload}")
+        context.user_data.clear()
         return ConversationHandler.END
-    else:
-        # Al menos un parámetro no se ingresó correctamente, volver a solicitar el mismo parámetro
-        return ENVIO
+
+    return ENTER_PARAMETERS
 
 async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """
@@ -392,6 +418,7 @@ def main() -> None:
             SELECT_ROOM     : [CallbackQueryHandler(select_room),CommandHandler('cancel',cancel )],
             SELECT_DEVICE   : [CallbackQueryHandler(select_device),CommandHandler('cancel',cancel )],
             SELECT_ACTION   : [CallbackQueryHandler(select_action),CommandHandler('cancel',cancel )],
+            ENTER_PARAMETERS: [MessageHandler(filters.TEXT & ~filters.COMMAND, end_pub)]
         },
         fallbacks=[CommandHandler('cancel', cancel)],
         per_message=False
