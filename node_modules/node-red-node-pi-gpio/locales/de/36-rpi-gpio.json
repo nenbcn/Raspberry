@@ -1,0 +1,75 @@
+{
+    "rpi-gpio": {
+        "label": {
+            "gpiopin": "GPIO",
+            "selectpin": "Pinauswahl",
+            "resistor": "Widerstand",
+            "readinitial": "Initalzustand des Pins bei Übernahme/Neustart lesen",
+            "type": "Typ",
+            "initpin": "Pin-Zustand initialisieren",
+            "debounce": "Entprellung",
+            "freq": "Frequenz",
+            "button": "Taste",
+            "pimouse": "Pi-Maus",
+            "pikeyboard": "Pi-Tastatur",
+            "left": "Links",
+            "right": "Rechts",
+            "middle": "Mitte"
+        },
+        "resistor": {
+            "none": "Kein",
+            "pullup": "Pull-Up",
+            "pulldown": "Pull-Down"
+        },
+        "digout": "Digitaler Ausgang",
+        "pwmout": "PWM-Ausgang",
+        "servo": "Servo-Ausgang",
+        "initpin0": "Pin-Initalzustand low (0)",
+        "initpin1": "Pin-Initalzustand high (1)",
+        "left": "Links",
+        "right": "Rechts",
+        "middle": "Mitte",
+        "any": "Beliebig",
+        "pinname": "Pin",
+        "alreadyuse": "bereits im Gebrauch",
+        "alreadyset": "bereits festgelegt als",
+        "tip": {
+            "pin": "<b>Verwendete Pins:</b> ",
+            "in": "<b>Tipp:</b> Es werden nur die digitale Eingänge unterstützt. Der Eingang muss 0 oder 1 sein",
+            "dig": "<b>Tipp:</b> Für den digitalen Ausgang muss der Node-Eingangswert 0 oder 1 sein",
+            "pwm": "<b>Tipp:</b> Für die PWM-Ausgabe muss der Node-Eingangswert zwischen 0 und 100 liegen. Hohen Frequenzen können die CPU mehr beanspruchen als erwartet.",
+            "ser": "<b>Tipp:</b> Für die Servo-Ausgabe muss der Node-Eingangswert zwischen 0 und 100 eingegeben werden. 50 ist die Mitte."
+        },
+        "types": {
+            "digout": "Digitaler Ausgang",
+            "input": "Eingang",
+            "pullup": "Eingang mit Pull-Up",
+            "pulldown": "Eingabe mit Pull-Down",
+            "pwmout": "PWM-Ausgang",
+            "servo": "Servo-Ausgang"
+        },
+        "status": {
+            "stopped": "Gestoppt",
+            "closed": "Geschlossen",
+            "not-running": "Nicht aktiv",
+            "not-available": "Nicht verfügbar",
+            "na": "Nicht anwendbar: __Wert__",
+            "ok": "OK"
+        },
+        "errors": {
+            "ignorenode": "Raspberry-Pi-spezifische Nodes inaktiv gesetzt",
+            "version": "Abrufen der Version vom Pi fehlgeschlagen",
+            "sawpitype": "Saw-Pi-Typ",
+            "libnotfound": "RPi.GPIO-Python-Bibliothek nicht gefunden",
+            "alreadyset": "GPIO-Pin __pin__ ist bereits festgelegt als Typ: __type__",
+            "invalidpin": "Ungültiger GPIO-Pin",
+            "invalidinput": "Ungültige Eingabe",
+            "needtobeexecutable": "__command__ muss ausführbar sein",
+            "mustbeexecutable": "nrgpio muss ausführbar sein",
+            "commandnotfound": "nrgpio-Befehl nicht gefunden ",
+            "commandnotexecutable": "nrgpio-Befehl nicht ausführbar ",
+            "error": "Fehler: __error__",
+            "pythoncommandnotfound": "nrgpio-Python-Befehl nicht aktiv"
+        }
+    }
+}

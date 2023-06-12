@@ -1,0 +1,1962 @@
+[
+    {
+        "id": "ad5de7828799c510",
+        "type": "tab",
+        "label": "sensor PH",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "5b17246f3cbfa330",
+        "type": "tab",
+        "label": "Telegram bot",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "052374a305ceb369",
+        "type": "group",
+        "z": "ad5de7828799c510",
+        "name": "Visualizacion Lecturas Sensor de PH",
+        "style": {
+            "stroke": "#ffC000",
+            "label": true,
+            "fill": "#ffdf7f"
+        },
+        "nodes": [
+            "dba8d6a8a46cd342",
+            "1456aedd3210b4c4",
+            "9a28919479df1ba6",
+            "d45860d72dea8767",
+            "f29afcfee4e8d181",
+            "5bb4edd819525965"
+        ],
+        "x": 554,
+        "y": 1139,
+        "w": 552,
+        "h": 182
+    },
+    {
+        "id": "c4389ced03d5e075",
+        "type": "group",
+        "z": "ad5de7828799c510",
+        "name": "Leer Parametros del Sensor",
+        "style": {
+            "label": true,
+            "color": "#7fb7df",
+            "fill": "#bfdbef"
+        },
+        "nodes": [
+            "f62d25bff744b0c9",
+            "5bb3809d139a22fa",
+            "88741f44c8764723",
+            "f53fcf313ce98722"
+        ],
+        "x": 54,
+        "y": 879,
+        "w": 432,
+        "h": 242
+    },
+    {
+        "id": "787a4f5985be5fc8",
+        "type": "group",
+        "z": "ad5de7828799c510",
+        "name": "Inicializar Parametros sensor PH",
+        "style": {
+            "fill": "#dbcbe7",
+            "label": true
+        },
+        "nodes": [
+            "ba6a83210b5fb39c",
+            "482105ff48cc0eb8"
+        ],
+        "x": 74,
+        "y": 699,
+        "w": 412,
+        "h": 142
+    },
+    {
+        "id": "cc4f96f66fef8efb",
+        "type": "group",
+        "z": "ad5de7828799c510",
+        "name": "Actualizar parametros sensor PH",
+        "style": {
+            "fill": "#e3f3d3",
+            "label": true
+        },
+        "nodes": [
+            "a081ba3973a21e9d",
+            "7d2588347f770994",
+            "a96cce76434de0d6",
+            "ab1f2f42d75a209a",
+            "598686056a3d1045",
+            "1aca3a64faf00a93",
+            "af4d2067aa3c689a",
+            "16596bd6adc8dd52",
+            "a2c43fc8164eb004",
+            "c4487a2f89c2cdad",
+            "a54c80bbb9f804c0",
+            "ec1c5d9e4b31a195",
+            "e613b9762d2803d2",
+            "8e1df8fa6b5f2521",
+            "28017e7cdd6b611e",
+            "2a4a524b7faa0438",
+            "aad408afd6b919c4",
+            "8aa19f6ed8e4af43",
+            "08c9508263651e51",
+            "779b6b5ef6bf00ce",
+            "21af9058f8379c68",
+            "6cac172e2ac10af0",
+            "c4f3e3311134374c",
+            "efe077ab449d5bb5"
+        ],
+        "x": 554,
+        "y": 719,
+        "w": 1032,
+        "h": 402
+    },
+    {
+        "id": "4bd81a30b8b78ec9",
+        "type": "group",
+        "z": "ad5de7828799c510",
+        "name": "Calibra el sensor",
+        "style": {
+            "fill": "#ff0000",
+            "label": true
+        },
+        "nodes": [
+            "8604d1d431d95cf8",
+            "7b4c903e0eccdda2",
+            "5ffd390298d9fda8",
+            "c3faec0b2ff3a154",
+            "f52ff608344236d4",
+            "835aa2bd9ce118bc"
+        ],
+        "x": 14,
+        "y": 1159,
+        "w": 512,
+        "h": 182,
+        "info": "cuando se pulsa el boton envia el mensaje de calibracio\nel paramtro es el PH de la solucion de calibracion\nlos botones se pueden activa desde un mensaje de telegram"
+    },
+    {
+        "id": "761205244efee825",
+        "type": "group",
+        "z": "5b17246f3cbfa330",
+        "name": "comandos del sensor de PH",
+        "style": {
+            "fill": "#ffefbf",
+            "label": true
+        },
+        "nodes": [
+            "3a6540c141f30247",
+            "e01e69d2cb4aa510",
+            "a7c6fd2814538421",
+            "3953ccfba44326e9",
+            "7780dbc18549f12c",
+            "7b8e321bfa081804",
+            "c2b29eb03ed56745",
+            "5b7b7e59f5e53199",
+            "ec77a73e3a5d587a",
+            "2fa2d19e6196764c"
+        ],
+        "x": 94,
+        "y": 399,
+        "w": 892,
+        "h": 302
+    },
+    {
+        "id": "f0547c29d16179a8",
+        "type": "group",
+        "z": "5b17246f3cbfa330",
+        "name": "comandos raspberry",
+        "style": {
+            "fill": "#e3f3d3",
+            "label": true
+        },
+        "nodes": [
+            "7d184c7f20e96153",
+            "36c553894ebd01e2",
+            "61231fb0df7ad95b"
+        ],
+        "x": 94,
+        "y": 291.5,
+        "w": 892,
+        "h": 97
+    },
+    {
+        "id": "6ad706698179a1c6",
+        "type": "mqtt-broker",
+        "name": "mosquitto raspberry1",
+        "broker": "192.168.1.52",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "2ffe0da68ce795a6",
+        "type": "telegram bot",
+        "botname": "Control_casa",
+        "usernames": "",
+        "chatids": "",
+        "baseapiurl": "",
+        "updatemode": "polling",
+        "pollinterval": "300",
+        "usesocks": false,
+        "sockshost": "",
+        "socksprotocol": "socks5",
+        "socksport": "6667",
+        "socksusername": "anonymous",
+        "sockspassword": "",
+        "bothost": "",
+        "botpath": "",
+        "localbotport": "8443",
+        "publicbotport": "8443",
+        "privatekey": "",
+        "certificate": "",
+        "useselfsignedcertificate": false,
+        "sslterminated": false,
+        "verboselogging": false
+    },
+    {
+        "id": "75b7db2afac2101d",
+        "type": "ui_group",
+        "name": "Calibrar",
+        "tab": "b0e12b47bba53809",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "2049fe1b092ce4a1",
+        "type": "ui_tab",
+        "name": "test",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "c69d73a74018af6f",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "c15f7e17c641b2af",
+        "type": "ui_group",
+        "name": "test",
+        "tab": "2049fe1b092ce4a1",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "b0e12b47bba53809",
+        "type": "ui_tab",
+        "name": "Sensor PH",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "ce08d1044519d6e2",
+        "type": "ui_group",
+        "name": "Visualizar datos",
+        "tab": "b0e12b47bba53809",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "726e6f2edc81dc67",
+        "type": "ui_group",
+        "name": "Parametros sensor PH",
+        "tab": "b0e12b47bba53809",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "13a47e2b5859181e",
+        "type": "git-nodes-config",
+        "name": "git@github.com:nenbcn/nodered.git",
+        "git": "git@github.com:nenbcn/nodered.git"
+    },
+    {
+        "id": "9a28919479df1ba6",
+        "type": "mqtt in",
+        "z": "ad5de7828799c510",
+        "g": "052374a305ceb369",
+        "name": "ping",
+        "topic": "Ping",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "6ad706698179a1c6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 630,
+        "y": 1280,
+        "wires": [
+            [
+                "d45860d72dea8767"
+            ]
+        ]
+    },
+    {
+        "id": "7d98f7280ea5f0a8",
+        "type": "debug",
+        "z": "ad5de7828799c510",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "9d7a3bf01841b655",
+        "type": "comment",
+        "z": "ad5de7828799c510",
+        "name": "",
+        "info": "",
+        "x": 680,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "dba8d6a8a46cd342",
+        "type": "ui_gauge",
+        "z": "ad5de7828799c510",
+        "g": "052374a305ceb369",
+        "name": "",
+        "group": "ce08d1044519d6e2",
+        "order": 11,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Visualizar Valor PH",
+        "label": "units",
+        "format": "{{value}}",
+        "min": "5",
+        "max": "7",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "5.5",
+        "seg2": "6.5",
+        "diff": false,
+        "className": "",
+        "x": 970,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "1456aedd3210b4c4",
+        "type": "mqtt in",
+        "z": "ad5de7828799c510",
+        "g": "052374a305ceb369",
+        "name": "",
+        "topic": "casa/huerto/sensorPH/lectura",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "6ad706698179a1c6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 700,
+        "y": 1220,
+        "wires": [
+            [
+                "dba8d6a8a46cd342",
+                "5bb4edd819525965"
+            ]
+        ]
+    },
+    {
+        "id": "ba6a83210b5fb39c",
+        "type": "inject",
+        "z": "ad5de7828799c510",
+        "g": "787a4f5985be5fc8",
+        "name": "inicializar valor defecto parametros",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "inicializa",
+        "payload": "payload",
+        "payloadType": "flow",
+        "x": 260,
+        "y": 740,
+        "wires": [
+            [
+                "482105ff48cc0eb8"
+            ]
+        ]
+    },
+    {
+        "id": "482105ff48cc0eb8",
+        "type": "function",
+        "z": "ad5de7828799c510",
+        "g": "787a4f5985be5fc8",
+        "name": "graba valores iniciales parametros en contexto",
+        "func": "flow.set('PHMax', 6.5);\nflow.set('PHMin', 5.5);\nflow.set('intervaloControl', 8);\nflow.set('intervaloLectura', 1);\nflow.set('tiempoBomba', 10);\nflow.set('pesoLectura', 100);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 800,
+        "wires": [
+            [
+                "a081ba3973a21e9d"
+            ]
+        ]
+    },
+    {
+        "id": "a081ba3973a21e9d",
+        "type": "function",
+        "z": "ad5de7828799c510",
+        "g": "cc4f96f66fef8efb",
+        "name": "passthrought",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 840,
+        "wires": [
+            [
+                "7d2588347f770994",
+                "598686056a3d1045",
+                "1aca3a64faf00a93",
+                "af4d2067aa3c689a",
+                "16596bd6adc8dd52",
+                "a2c43fc8164eb004"
+            ]
+        ]
+    },
+    {
+        "id": "c4f3e3311134374c",
+        "type": "ui_numeric",
+        "z": "ad5de7828799c510",
+        "g": "cc4f96f66fef8efb",
+        "name": "",
+        "label": "PH Max",
+        "tooltip": "Valor maximo PH",
+        "group": "726e6f2edc81dc67",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "wrap": false,
+        "passthru": false,
+        "topic": "payload",
+        "topicType": "flow",
+        "format": "{{value}}",
+        "min": "6",
+        "max": "7",
+        "step": "0.1",
+        "className": "",
+        "x": 1220,
+        "y": 760,
+        "wires": [
+            [
+                "efe077ab449d5bb5"
+            ]
+        ]
+    },
+    {
+        "id": "a54c80bbb9f804c0",
+        "type": "function",
+        "z": "ad5de7828799c510",
+        "g": "cc4f96f66fef8efb",
+        "name": "Mensaje mqtt parametros",
+        "func": "\n// Obtener la lista de parámetros del contexto\nvar listaParametros = flow.get(\"listaParametros\");\n\n// Crear un objeto JSON para almacenar los nombres y valores de los parámetros\nvar parametrosJSON = {};\n\n// Recorrer la lista de parámetros y obtener sus valores del contexto\nfor (var i = 0; i < listaParametros.length; i++) {\n    var parametro = listaParametros[i];\n    var valorParametro = flow.get(parametro);\n\n    // Asignar el nombre y valor del parámetro al objeto JSON\n    parametrosJSON[parametro] = valorParametro;\n}\n\n// Asignar la estructura JSON al payload del mensaje de salida\nmsg.payload = parametrosJSON;\n\n// Devolver el mensaje de salida\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1010,
+        "y": 1080,
+        "wires": [
+            [
+                "ec1c5d9e4b31a195"
+            ]
+        ],
+        "info": "lee del contexto la lista los parametros a actualizar y el valor de los mismos\nGenera un Json para los parametros en la lista con su valor {\"PHMax\":6.5, \"}\nCarga el JSON en el payload\ncomo topic usa casa/huerto/sensorPH/actulizaParametroa"
+    },
+    {
+        "id": "efe077ab449d5bb5",
+        "type": "function",
+        "z": "ad5de7828799c510",
+        "g": "cc4f96f66fef8efb",
+        "name": "Grabar PH Max",
+        "func": "\nflow.set('PHMax', msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1440,
+        "y": 760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ec1c5d9e4b31a195",
+        "type": "mqtt out",
+        "z": "ad5de7828799c510",
+        "g": "cc4f96f66fef8efb",
+        "name": "",
+        "topic": "casa/huerto/sensorPH/actualizaParametros",
+        "qos": "1",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "6ad706698179a1c6",
+        "x": 1330,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "6cac172e2ac10af0",
+        "type": "ui_numeric",
+        "z": "ad5de7828799c510",
+        "g": "cc4f96f66fef8efb",
+        "name": "",
+        "label": "PH Min",
+        "tooltip": "",
+        "group": "726e6f2edc81dc67",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "wrap": false,
+        "passthru": true,
+        "topic": "payload",
+        "topicType": "msg",
+        "format": "{{value}}",
+        "min": "5",
+        "max": "6",
+        "step": "0.1",
+        "className": "",
+        "x": 1220,
+        "y": 800,
+        "wires": [
+            [
+                "aad408afd6b919c4"
+            ]
+        ]
+    },
+    {
+        "id": "21af9058f8379c68",
+        "type": "ui_numeric",
+        "z": "ad5de7828799c510",
+        "g": "cc4f96f66fef8efb",
+        "name": "",
+        "label": "intervaloControl",
+        "tooltip": "entrar en tiempo en horas para activar bombas",
+        "group": "726e6f2edc81dc67",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "wrap": false,
+        "passthru": true,
+        "topic": "payload",
+        "topicType": "msg",
+        "format": "{{value}} h",
+        "min": "1",
+        "max": "24",
+        "step": "1",
+        "className": "",
+        "x": 1240,
+        "y": 840,
+        "wires": [
+            [
+                "2a4a524b7faa0438"
+            ]
+        ]
+    },
+    {
+        "id": "779b6b5ef6bf00ce",
+        "type": "ui_numeric",
+        "z": "ad5de7828799c510",
+        "g": "cc4f96f66fef8efb",
+        "name": "",
+        "label": "intervaloLectura",
+        "tooltip": "entrar en tiempo en minutos para enviar lecturas PH",
+        "group": "726e6f2edc81dc67",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "wrap": false,
+        "passthru": true,
+        "topic": "payload",
+        "topicType": "msg",
+        "format": "{{value}} min",
+        "min": "1",
+        "max": "24",
+        "step": "1",
+        "className": "",
+        "x": 1240,
+        "y": 880,
+        "wires": [
+            [
+                "28017e7cdd6b611e"
+            ]
+        ]
+    },
+    {
+        "id": "08c9508263651e51",
+        "type": "ui_numeric",
+        "z": "ad5de7828799c510",
+        "g": "cc4f96f66fef8efb",
+        "name": "",
+        "label": "tiempoBomba",
+        "tooltip": "entrar en tiempo en segundos de activacion de la bomba",
+        "group": "726e6f2edc81dc67",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "wrap": false,
+        "passthru": true,
+        "topic": "payload",
+        "topicType": "msg",
+        "format": "{{value}} s",
+        "min": "1",
+        "max": "60",
+        "step": "1",
+        "className": "",
+        "x": 1240,
+        "y": 920,
+        "wires": [
+            [
+                "8e1df8fa6b5f2521"
+            ]
+        ]
+    },
+    {
+        "id": "8aa19f6ed8e4af43",
+        "type": "ui_numeric",
+        "z": "ad5de7828799c510",
+        "g": "cc4f96f66fef8efb",
+        "name": "",
+        "label": "pesoLectura",
+        "tooltip": "entrar el peso relativo para calcular la media ponderada con cada lectura",
+        "group": "726e6f2edc81dc67",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "wrap": false,
+        "passthru": true,
+        "topic": "payload",
+        "topicType": "msg",
+        "format": "{{value}}",
+        "min": "10",
+        "max": "1000",
+        "step": "10",
+        "className": "",
+        "x": 1230,
+        "y": 960,
+        "wires": [
+            [
+                "e613b9762d2803d2"
+            ]
+        ]
+    },
+    {
+        "id": "aad408afd6b919c4",
+        "type": "function",
+        "z": "ad5de7828799c510",
+        "g": "cc4f96f66fef8efb",
+        "name": "Grabar PHMin",
+        "func": "\nflow.set('PHMin', msg.topic);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1440,
+        "y": 800,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2a4a524b7faa0438",
+        "type": "function",
+        "z": "ad5de7828799c510",
+        "g": "cc4f96f66fef8efb",
+        "name": "Grabar intControl",
+        "func": "\nflow.set('intControl', msg.topic);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1450,
+        "y": 840,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "28017e7cdd6b611e",
+        "type": "function",
+        "z": "ad5de7828799c510",
+        "g": "cc4f96f66fef8efb",
+        "name": "Grabar intLectura",
+        "func": "flow.set('intLectura', msg.topic);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1450,
+        "y": 880,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8e1df8fa6b5f2521",
+        "type": "function",
+        "z": "ad5de7828799c510",
+        "g": "cc4f96f66fef8efb",
+        "name": "Grabar tiempoBomba",
+        "func": "\nflow.set('tiempoBomba', msg.topic);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1460,
+        "y": 920,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e613b9762d2803d2",
+        "type": "function",
+        "z": "ad5de7828799c510",
+        "g": "cc4f96f66fef8efb",
+        "name": "Grabar pesoLectura",
+        "func": "\nflow.set('pesoLectura', msg.topic);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1460,
+        "y": 960,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f62d25bff744b0c9",
+        "type": "ui_button",
+        "z": "ad5de7828799c510",
+        "g": "c4389ced03d5e075",
+        "name": "",
+        "group": "726e6f2edc81dc67",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Recibir parametros <- sensor",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "PHMax",
+        "payloadType": "flow",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 200,
+        "y": 920,
+        "wires": [
+            [
+                "f53fcf313ce98722"
+            ]
+        ]
+    },
+    {
+        "id": "5bb3809d139a22fa",
+        "type": "mqtt in",
+        "z": "ad5de7828799c510",
+        "g": "c4389ced03d5e075",
+        "name": "",
+        "topic": "casa/huerto/sesorPH/valorParametros",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "6ad706698179a1c6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 250,
+        "y": 1020,
+        "wires": [
+            [
+                "88741f44c8764723"
+            ]
+        ]
+    },
+    {
+        "id": "88741f44c8764723",
+        "type": "function",
+        "z": "ad5de7828799c510",
+        "g": "c4389ced03d5e075",
+        "name": "Grabar valores parametros sensor en contexto",
+        "func": "// Obtener la estructura JSON del payload\nvar parametros = msg.payload;\n\n// Recorrer cada parámetro y guardar su valor en el contexto\nfor (var parametro in parametros) {\n    if (parametros.hasOwnProperty(parametro)) {\n        var valor = parametros[parametro];\n        flow.set(parametro, valor);\n        console.log(\"Valor de\", parametro, \"guardado en el contexto:\", valor);\n    }\n}\n\n// Devolver el mensaje sin modificar\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 1080,
+        "wires": [
+            [
+                "a081ba3973a21e9d"
+            ]
+        ]
+    },
+    {
+        "id": "ab1f2f42d75a209a",
+        "type": "ui_dropdown",
+        "z": "ad5de7828799c510",
+        "g": "cc4f96f66fef8efb",
+        "name": "",
+        "label": "listaParametros a actualizar",
+        "tooltip": "",
+        "place": "Select option",
+        "group": "726e6f2edc81dc67",
+        "order": 9,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "PHMax",
+                "value": "\"PHMax\"",
+                "type": "str"
+            },
+            {
+                "label": "PHMin",
+                "value": "\"PHMin\"",
+                "type": "str"
+            },
+            {
+                "label": "intervaloControl",
+                "value": "\"intervaloControl\"",
+                "type": "str"
+            },
+            {
+                "label": "intervaloLectura",
+                "value": "\"intervaloLectura\"",
+                "type": "str"
+            },
+            {
+                "label": "pesoLectura",
+                "value": "\"pesoLectura\"",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "x": 700,
+        "y": 1020,
+        "wires": [
+            [
+                "c4487a2f89c2cdad"
+            ]
+        ]
+    },
+    {
+        "id": "a96cce76434de0d6",
+        "type": "ui_button",
+        "z": "ad5de7828799c510",
+        "g": "cc4f96f66fef8efb",
+        "name": "",
+        "group": "726e6f2edc81dc67",
+        "order": 9,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "enviar Parametro -> Sensor",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 700,
+        "y": 1080,
+        "wires": [
+            [
+                "a54c80bbb9f804c0"
+            ]
+        ]
+    },
+    {
+        "id": "7d2588347f770994",
+        "type": "function",
+        "z": "ad5de7828799c510",
+        "g": "cc4f96f66fef8efb",
+        "name": "Lee  contexto \"PHMax\"",
+        "func": "msg.payload =  flow.get(\"PHMax\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 970,
+        "y": 760,
+        "wires": [
+            [
+                "c4f3e3311134374c"
+            ]
+        ]
+    },
+    {
+        "id": "598686056a3d1045",
+        "type": "function",
+        "z": "ad5de7828799c510",
+        "g": "cc4f96f66fef8efb",
+        "name": "Lee contexto \"PHMin\"",
+        "func": "msg.payload =  flow.get(\"PHMin\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 960,
+        "y": 800,
+        "wires": [
+            [
+                "6cac172e2ac10af0"
+            ]
+        ]
+    },
+    {
+        "id": "1aca3a64faf00a93",
+        "type": "function",
+        "z": "ad5de7828799c510",
+        "g": "cc4f96f66fef8efb",
+        "name": "Lee contexto \"intervaloControl\"",
+        "func": "msg.payload =  flow.get(\"intervaloControl\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 990,
+        "y": 840,
+        "wires": [
+            [
+                "21af9058f8379c68"
+            ]
+        ]
+    },
+    {
+        "id": "af4d2067aa3c689a",
+        "type": "function",
+        "z": "ad5de7828799c510",
+        "g": "cc4f96f66fef8efb",
+        "name": "Lee contexto \"intervaloLectura\"",
+        "func": "msg.payload =  flow.get(\"intervaloLectura\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 990,
+        "y": 880,
+        "wires": [
+            [
+                "779b6b5ef6bf00ce"
+            ]
+        ]
+    },
+    {
+        "id": "16596bd6adc8dd52",
+        "type": "function",
+        "z": "ad5de7828799c510",
+        "g": "cc4f96f66fef8efb",
+        "name": "Lee contexto \"tiempoBomba\"",
+        "func": "msg.payload =  flow.get(\"tiempoBomba\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 990,
+        "y": 920,
+        "wires": [
+            [
+                "08c9508263651e51"
+            ]
+        ]
+    },
+    {
+        "id": "a2c43fc8164eb004",
+        "type": "function",
+        "z": "ad5de7828799c510",
+        "g": "cc4f96f66fef8efb",
+        "name": "Lee contexto \"pesoLectura\"",
+        "func": "msg.payload =  flow.get(\"pesoLectura\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 980,
+        "y": 960,
+        "wires": [
+            [
+                "8aa19f6ed8e4af43"
+            ]
+        ]
+    },
+    {
+        "id": "28955e5d9f87a6bb",
+        "type": "debug",
+        "z": "ad5de7828799c510",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 1480,
+        "wires": []
+    },
+    {
+        "id": "d45860d72dea8767",
+        "type": "function",
+        "z": "ad5de7828799c510",
+        "g": "052374a305ceb369",
+        "name": "cuenta pings",
+        "func": "\nmsg.topic = \"ping\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 1280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f29afcfee4e8d181",
+        "type": "ui_toast",
+        "z": "ad5de7828799c510",
+        "g": "052374a305ceb369",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "",
+        "x": 990,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "c4487a2f89c2cdad",
+        "type": "function",
+        "z": "ad5de7828799c510",
+        "g": "cc4f96f66fef8efb",
+        "name": "Guarda lista parametros",
+        "func": "flow.set(\"listaParametros\", msg.payload)",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1010,
+        "y": 1020,
+        "wires": [
+            []
+        ],
+        "info": "guarda en contexto la lista de parametros a actualizar"
+    },
+    {
+        "id": "f53fcf313ce98722",
+        "type": "mqtt out",
+        "z": "ad5de7828799c510",
+        "g": "c4389ced03d5e075",
+        "name": "",
+        "topic": "casa/huerto/sensorPH/leeParametros",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "6ad706698179a1c6",
+        "x": 310,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "ec047483746f5848",
+        "type": "debug",
+        "z": "ad5de7828799c510",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 1380,
+        "wires": []
+    },
+    {
+        "id": "5bb4edd819525965",
+        "type": "link out",
+        "z": "ad5de7828799c510",
+        "g": "052374a305ceb369",
+        "name": "Lectura PH out",
+        "mode": "link",
+        "links": [
+            "5b7b7e59f5e53199"
+        ],
+        "x": 935,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "8604d1d431d95cf8",
+        "type": "ui_button",
+        "z": "ad5de7828799c510",
+        "g": "4bd81a30b8b78ec9",
+        "name": "",
+        "group": "75b7db2afac2101d",
+        "order": 9,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "label": "Calibrar 7",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 140,
+        "y": 1200,
+        "wires": [
+            [
+                "5ffd390298d9fda8"
+            ]
+        ]
+    },
+    {
+        "id": "7b4c903e0eccdda2",
+        "type": "ui_button",
+        "z": "ad5de7828799c510",
+        "g": "4bd81a30b8b78ec9",
+        "name": "",
+        "group": "75b7db2afac2101d",
+        "order": 9,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "label": "Calibrar 4",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 140,
+        "y": 1260,
+        "wires": [
+            [
+                "5ffd390298d9fda8"
+            ]
+        ]
+    },
+    {
+        "id": "5ffd390298d9fda8",
+        "type": "function",
+        "z": "ad5de7828799c510",
+        "g": "4bd81a30b8b78ec9",
+        "name": "PH calibrar",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 1220,
+        "wires": [
+            [
+                "c3faec0b2ff3a154"
+            ]
+        ]
+    },
+    {
+        "id": "c3faec0b2ff3a154",
+        "type": "mqtt out",
+        "z": "ad5de7828799c510",
+        "g": "4bd81a30b8b78ec9",
+        "name": "",
+        "topic": "casa/huerto/sensorPH/calibrar",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "6ad706698179a1c6",
+        "x": 370,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "166811a1b6705b66",
+        "type": "comment",
+        "z": "ad5de7828799c510",
+        "name": "aqui deberian estar todas las interacciones con en sensor",
+        "info": "",
+        "x": 450,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "f52ff608344236d4",
+        "type": "link in",
+        "z": "ad5de7828799c510",
+        "g": "4bd81a30b8b78ec9",
+        "name": "calibrar 7 in",
+        "links": [
+            "ec77a73e3a5d587a"
+        ],
+        "x": 55,
+        "y": 1200,
+        "wires": [
+            [
+                "8604d1d431d95cf8"
+            ]
+        ]
+    },
+    {
+        "id": "835aa2bd9ce118bc",
+        "type": "link in",
+        "z": "ad5de7828799c510",
+        "g": "4bd81a30b8b78ec9",
+        "name": "calibrar 4 in",
+        "links": [
+            "2fa2d19e6196764c"
+        ],
+        "x": 55,
+        "y": 1260,
+        "wires": [
+            [
+                "7b4c903e0eccdda2"
+            ]
+        ]
+    },
+    {
+        "id": "fbb78540e3699853",
+        "type": "telegram sender",
+        "z": "5b17246f3cbfa330",
+        "name": "enviar bot control casa",
+        "bot": "2ffe0da68ce795a6",
+        "haserroroutput": true,
+        "outputs": 2,
+        "x": 600,
+        "y": 80,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "5e47aebbf3179728",
+        "type": "inject",
+        "z": "5b17246f3cbfa330",
+        "name": "",
+        "props": [
+            {
+                "p": "payload.content",
+                "v": "kk",
+                "vt": "str"
+            },
+            {
+                "p": "payload.type",
+                "v": "message",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 170,
+        "y": 80,
+        "wires": [
+            [
+                "922e77a6b31c067c"
+            ]
+        ]
+    },
+    {
+        "id": "b896e9a3c9d1f835",
+        "type": "telegram receiver",
+        "z": "5b17246f3cbfa330",
+        "name": "recibir mensaje bot",
+        "bot": "2ffe0da68ce795a6",
+        "saveDataDir": "",
+        "filterCommands": false,
+        "x": 190,
+        "y": 160,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "69725477d6d7d26e",
+        "type": "debug",
+        "z": "5b17246f3cbfa330",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 500,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "922e77a6b31c067c",
+        "type": "change",
+        "z": "5b17246f3cbfa330",
+        "name": "Asignar chatId",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.chatId",
+                "pt": "msg",
+                "to": "0x13e51de39",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 80,
+        "wires": [
+            [
+                "fbb78540e3699853"
+            ]
+        ]
+    },
+    {
+        "id": "badea836fb18a1d6",
+        "type": "telegram command",
+        "z": "5b17246f3cbfa330",
+        "name": "/start",
+        "command": "/start",
+        "description": "",
+        "registercommand": false,
+        "language": "",
+        "scope": "default",
+        "bot": "2ffe0da68ce795a6",
+        "strict": false,
+        "hasresponse": true,
+        "useregex": false,
+        "removeregexcommand": false,
+        "outputs": 2,
+        "x": 150,
+        "y": 240,
+        "wires": [
+            [
+                "5c67bd8f4f49e545"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "3a6540c141f30247",
+        "type": "telegram command",
+        "z": "5b17246f3cbfa330",
+        "g": "761205244efee825",
+        "name": "/PHCalibrar7",
+        "command": "/PHCalibrar7",
+        "description": "",
+        "registercommand": false,
+        "language": "",
+        "scope": "default",
+        "bot": "2ffe0da68ce795a6",
+        "strict": false,
+        "hasresponse": true,
+        "useregex": false,
+        "removeregexcommand": false,
+        "outputs": 2,
+        "x": 250,
+        "y": 600,
+        "wires": [
+            [
+                "ec77a73e3a5d587a"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "e01e69d2cb4aa510",
+        "type": "telegram command",
+        "z": "5b17246f3cbfa330",
+        "g": "761205244efee825",
+        "name": "/PHCalibrar4",
+        "command": "/PHCalibrar4",
+        "description": "",
+        "registercommand": false,
+        "language": "",
+        "scope": "default",
+        "bot": "2ffe0da68ce795a6",
+        "strict": false,
+        "hasresponse": true,
+        "useregex": false,
+        "removeregexcommand": false,
+        "outputs": 2,
+        "x": 250,
+        "y": 660,
+        "wires": [
+            [
+                "2fa2d19e6196764c"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "7d184c7f20e96153",
+        "type": "telegram command",
+        "z": "5b17246f3cbfa330",
+        "g": "f0547c29d16179a8",
+        "name": "/raspberry",
+        "command": "/raspberry",
+        "description": "",
+        "registercommand": false,
+        "language": "",
+        "scope": "default",
+        "bot": "2ffe0da68ce795a6",
+        "strict": false,
+        "hasresponse": true,
+        "useregex": false,
+        "removeregexcommand": false,
+        "outputs": 2,
+        "x": 180,
+        "y": 340,
+        "wires": [
+            [
+                "36c553894ebd01e2"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "36c553894ebd01e2",
+        "type": "exec",
+        "z": "5b17246f3cbfa330",
+        "g": "f0547c29d16179a8",
+        "command": "sudo /usr/local/scripts/check_services.sh",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 460,
+        "y": 340,
+        "wires": [
+            [
+                "61231fb0df7ad95b"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "f4e82d4b2cdfb96d",
+        "type": "inject",
+        "z": "5b17246f3cbfa330",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 180,
+        "y": 920,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "86632924e130dbc0",
+        "type": "telegram sender",
+        "z": "5b17246f3cbfa330",
+        "name": "enviar mensaje bot control casa",
+        "bot": "2ffe0da68ce795a6",
+        "haserroroutput": true,
+        "outputs": 2,
+        "x": 1210,
+        "y": 340,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "61231fb0df7ad95b",
+        "type": "function",
+        "z": "5b17246f3cbfa330",
+        "g": "f0547c29d16179a8",
+        "name": "crear mensaje para chat",
+        "func": "msg.payload = {\n    content: msg.payload,\n    chatId: 0x13e51de39,\n    type: \"message\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 850,
+        "y": 340,
+        "wires": [
+            [
+                "86632924e130dbc0"
+            ]
+        ]
+    },
+    {
+        "id": "b1b772d50a31c1bc",
+        "type": "mqtt in",
+        "z": "5b17246f3cbfa330",
+        "name": "",
+        "topic": "casa/huerto/sensorPH/#",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "6ad706698179a1c6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 230,
+        "y": 800,
+        "wires": [
+            [
+                "69725477d6d7d26e"
+            ]
+        ]
+    },
+    {
+        "id": "5c67bd8f4f49e545",
+        "type": "function",
+        "z": "5b17246f3cbfa330",
+        "name": "texto start",
+        "func": "msg.payload = {};\nmsg.payload.content =  \"/start -lista de comandos \\n\";\nmsg.payload.content += \"/sensorPH -control sensor PH \\n\";\nmsg.payload.content += \"/sensorXX -control sensor xx \\n\";\nmsg.payload.content += \"/raspberry -status raspberry\";\nmsg.payload.chatId = 0x13e51de39;\nmsg.payload.type = \"message\";\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 890,
+        "y": 240,
+        "wires": [
+            [
+                "86632924e130dbc0"
+            ]
+        ]
+    },
+    {
+        "id": "a7c6fd2814538421",
+        "type": "function",
+        "z": "5b17246f3cbfa330",
+        "g": "761205244efee825",
+        "name": "help sensorPH",
+        "func": "msg.payload = {};\nmsg.payload.content = \"/PHLectura -lectura PH \\n\";\nmsg.payload.content += \"/PHParam - parametros sensor PH \\n\";\nmsg.payload.content += \"/PHCalibra7 -calibra PH 7 \\n\";\nmsg.payload.content += \"/PHCalibra4 -calibra PH 4 \\n\";\nmsg.payload.content += \"/start -lista de comandos\\n\";\n\nmsg.payload.chatId = 0x13e51de39;\nmsg.payload.type = \"message\";\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 440,
+        "wires": [
+            [
+                "86632924e130dbc0"
+            ]
+        ]
+    },
+    {
+        "id": "3953ccfba44326e9",
+        "type": "telegram command",
+        "z": "5b17246f3cbfa330",
+        "g": "761205244efee825",
+        "name": "/sensorPH",
+        "command": "/sensorPH",
+        "description": "",
+        "registercommand": false,
+        "language": "",
+        "scope": "default",
+        "bot": "2ffe0da68ce795a6",
+        "strict": false,
+        "hasresponse": true,
+        "useregex": false,
+        "removeregexcommand": false,
+        "outputs": 2,
+        "x": 180,
+        "y": 440,
+        "wires": [
+            [
+                "a7c6fd2814538421"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "7780dbc18549f12c",
+        "type": "telegram command",
+        "z": "5b17246f3cbfa330",
+        "g": "761205244efee825",
+        "name": "/PHLectura",
+        "command": "/PHLectura",
+        "description": "",
+        "registercommand": false,
+        "language": "",
+        "scope": "default",
+        "bot": "2ffe0da68ce795a6",
+        "strict": false,
+        "hasresponse": true,
+        "useregex": false,
+        "removeregexcommand": false,
+        "outputs": 2,
+        "x": 250,
+        "y": 500,
+        "wires": [
+            [
+                "c2b29eb03ed56745"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "7b8e321bfa081804",
+        "type": "function",
+        "z": "5b17246f3cbfa330",
+        "g": "761205244efee825",
+        "name": "guarda PH en contexto",
+        "func": "// recibe una lectura cada ciclo de lectura 1 min?\n// guardar las ultimas 10 lecturas con su hora\n// podria guarda las lecturas desde la ultima vez qeu se ajusto la bomba (mejor la guarda la bomba)\n// o de un dia antes si no se ajusto?\nmsg.payload = {}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b115e205b253fbc9",
+        "type": "complete",
+        "z": "5b17246f3cbfa330",
+        "name": "",
+        "scope": [],
+        "uncaught": false,
+        "x": 630,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b05c57a367a1b33b",
+        "type": "comment",
+        "z": "5b17246f3cbfa330",
+        "name": "",
+        "info": "se guarda siempre la ultima lectura de PH en una variable de contexto\ncuando la funcion rebiba el comando leera el ph del contexto y lo enviara",
+        "x": 1160,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "c2b29eb03ed56745",
+        "type": "function",
+        "z": "5b17246f3cbfa330",
+        "g": "761205244efee825",
+        "name": "envia PH contexto",
+        "func": "msg.payload = {}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 870,
+        "y": 500,
+        "wires": [
+            [
+                "86632924e130dbc0"
+            ]
+        ]
+    },
+    {
+        "id": "5b7b7e59f5e53199",
+        "type": "link in",
+        "z": "5b17246f3cbfa330",
+        "g": "761205244efee825",
+        "name": "Lectura PH in",
+        "links": [
+            "5bb4edd819525965"
+        ],
+        "x": 435,
+        "y": 540,
+        "wires": [
+            [
+                "7b8e321bfa081804"
+            ]
+        ]
+    },
+    {
+        "id": "ec77a73e3a5d587a",
+        "type": "link out",
+        "z": "5b17246f3cbfa330",
+        "g": "761205244efee825",
+        "name": "Calibrar 7 out",
+        "mode": "link",
+        "links": [
+            "f52ff608344236d4"
+        ],
+        "x": 435,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "2fa2d19e6196764c",
+        "type": "link out",
+        "z": "5b17246f3cbfa330",
+        "g": "761205244efee825",
+        "name": "Calibrar 4 out",
+        "mode": "link",
+        "links": [
+            "835aa2bd9ce118bc"
+        ],
+        "x": 435,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "4f693129c264742f",
+        "type": "git-nodes",
+        "z": "5b17246f3cbfa330",
+        "label": "test",
+        "branch": "master",
+        "sourcebranch": "master",
+        "gitadd": "settings.js,package.json,.config.json,lib",
+        "gitrmcache": "nodes/*/x,nodes/*/y,nodes/*/z",
+        "debugging": true,
+        "git": "13a47e2b5859181e",
+        "x": 700,
+        "y": 900,
+        "wires": []
+    }
+]
